@@ -1,0 +1,55 @@
+apply plugin: 'com.android.application'
+//使用kotlin-android插件
+apply plugin: 'kotlin-android'
+//使用kotlin-android-extensions插件
+apply plugin: 'kotlin-android-extensions'
+
+
+android {
+    compileSdkVersion versions["compileSdkVersion"]
+    buildToolsVersion versions["buildToolsVersion"]
+    defaultConfig {
+        applicationId "com.hunreally.appjava"
+        minSdkVersion versions["minSdkVersion"]
+        targetSdkVersion versions["targetSdkVersion"]
+        versionCode versions["versionCode"]
+        versionName versions["versionName"]
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            //minifyEnabled为false打包不混淆，为true打包时候混淆
+            minifyEnabled true
+            //proguard-android.txt是SDK目录下默认的配置文件
+            //proguard-rules.pro项目根目录下的配置文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable false//必须保证与引入其他第三方Model的包名不一致，否则会导致BuildConfig.DEBUG冲突
+        }
+        debug {
+            //minifyEnabled为false debug不混淆，为true debug时候混淆
+            minifyEnabled false
+            //proguard-android.txt是SDK目录下默认的配置文件
+            //proguard-rules.pro项目根目录下的配置文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable true//必须保证与引入其他第三方Model的包名不一致，否则会导致BuildConfig.DEBUG冲突
+        }
+    }
+    sourceSets{
+        main{
+            java.srcDirs+="src/main/kotlin"
+        }
+    }
+    buildToolsVersion  versions["buildToolsVersion"]
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':framework')
+    //测试依赖
+    testImplementation rootProject.ext.dependencies["junit"]
+    androidTestImplementation rootProject.ext.dependencies["testRunner"]
+    androidTestImplementation rootProject.ext.dependencies["testEspresso"]
+
+    //constraint-layout依赖
+    implementation rootProject.ext.dependencies["constraintLayout"]
+}

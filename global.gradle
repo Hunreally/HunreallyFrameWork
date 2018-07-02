@@ -1,0 +1,102 @@
+/**********************************************全局配置********************************************/
+//v4与v7兼容包的版本
+def supportVersion = "27.1.1"
+//jvm目标版本
+def jvmTargetVersion = "1.8"
+//junit版本
+def junitVersion = "4.12"
+//testRunner版本
+def testRunnerVersion="1.0.2"
+//testEspresso版本
+def testEspressoVersion = "3.0.2"
+//okhttp3log日志版本
+def okhttp3LoggingVersion = "3.9.0"
+//retrofit版本
+def retrofitVersion = "2.3.0"
+//rxjava版本
+def rxJavaVersion = "2.1.3"
+//rxjavaForAndroid版本
+def rxJavaAndroidVersion = "2.0.1"
+//rxKotlin版本
+def rxKotlinVersion = "2.1.0"
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+//Caused by:
+// java.lang.ClassCastException: com.trello.lifecycle2.android.lifecycle.AndroidLifecycle_LifecycleAdapter
+// cannot be cast to
+// android.arch.lifecycle.GeneratedAdapter
+//rxLifecycleVersion = "2.2.0" 需要升级为 rxLifecycleVersion = "2.2.1"
+///////////////////////////////////////////////////////////////////////////////////////////////////
+//rx生命周期处理依赖
+def rxLifecycleVersion = "2.2.1"
+
+//constraintLayout版本
+def constraintLayoutVersion = "1.1.1"
+
+
+ext {
+    versions = [
+            /**********公共依赖的版本号***********/
+            "compileSdkVersion": 27,
+            "buildToolsVersion": "27.0.3",
+            "minSdkVersion"    : 18,
+            "targetSdkVersion" : 27,
+            "versionCode"      : 100,
+            "versionName"      : "1.0.0",
+            "jvmTargetVersion" : jvmTargetVersion
+    ]
+
+    dependencies = [
+            "support-v4-and-v7"   :[
+                    "com.android.support:support-v4:${supportVersion}",
+                    "com.android.support:appcompat-v7:${supportVersion}"
+            ],
+
+            "junit"   :[
+                    "junit:junit:${junitVersion}"
+            ],
+
+            "testRunner"   :[
+                    "com.android.support.test:runner:${testRunnerVersion}"
+            ],
+
+            "testEspresso"   :[
+                    "com.android.support.test.espresso:espresso-core:${testEspressoVersion}"
+            ],
+
+            "okhttp3Logging"   :[
+                    "com.squareup.okhttp3:logging-interceptor:${okhttp3LoggingVersion}"
+            ],
+
+            "retrofit"   :[
+                    "com.squareup.retrofit2:retrofit:${retrofitVersion}",
+                    "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}",
+                    "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
+            ],
+
+            "rxJava"   :[
+                    "io.reactivex.rxjava2:rxandroid:${rxJavaAndroidVersion}",
+                    "io.reactivex.rxjava2:rxjava:${rxJavaVersion}"
+            ],
+
+            //如果使用kotlin的rx可以使用如下依赖
+            "rxKotlin"   :[
+                    "io.reactivex.rxjava2:rxkotlin:${rxKotlinVersion}"
+            ],
+
+            "rxLifecycle"   :[
+                    "com.trello.rxlifecycle2:rxlifecycle-components-preference:${rxLifecycleVersion}",
+                    "com.trello.rxlifecycle2:rxlifecycle:${rxLifecycleVersion}",
+                    "com.trello.rxlifecycle2:rxlifecycle-kotlin:${rxLifecycleVersion}",
+                    "com.trello.rxlifecycle2:rxlifecycle-android:${rxLifecycleVersion}",
+                    "com.trello.rxlifecycle2:rxlifecycle-android-lifecycle:${rxLifecycleVersion}",
+                    "com.trello.rxlifecycle2:rxlifecycle-components:${rxLifecycleVersion}",
+                    "com.trello.rxlifecycle2:rxlifecycle-navi:${rxLifecycleVersion}",
+                    "com.trello.rxlifecycle2:rxlifecycle-android-lifecycle-kotlin:${rxLifecycleVersion}"
+            ],
+
+            "constraintLayout"   :[
+                    "com.android.support.constraint:constraint-layout:${constraintLayoutVersion}"
+            ],
+    ]
+}

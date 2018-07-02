@@ -1,0 +1,63 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+/**
+ * 全局项目使用工具集配置
+ */
+//kotlin插件引入
+apply plugin: "kotlin"
+//引入自定义的全局配置文件
+apply from:"global.gradle"
+
+buildscript {
+    //gradle版本
+    ext.gradleVersion="3.1.2"
+    //kotlin版本
+    ext.kotlinVersion = '1.2.31'
+
+    //插件依赖
+    dependencies {
+        classpath "com.android.tools.build:gradle:$gradleVersion"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlinVersion"
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+    //仓库地址
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+//项目仓库依赖
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+//仓库依赖
+repositories {
+    mavenCentral()
+}
+//kotlin 标准库
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
+}
+
+//编译是kotlin目标jdk版本
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = versions["jvmTargetVersion"]
+    }
+}
+//测试时kotlin目标jdk版本
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = versions["jvmTargetVersion"]
+    }
+}
+
+//task clean(type: Delete) {
+//    delete rootProject.buildDir
+//}

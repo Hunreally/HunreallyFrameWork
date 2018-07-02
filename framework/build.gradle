@@ -1,0 +1,68 @@
+apply plugin: 'com.android.library'
+//使用kotlin-android插件
+apply plugin: 'kotlin-android'
+//使用kotlin-android-extensions插件
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion versions["compileSdkVersion"]
+    buildToolsVersion versions["buildToolsVersion"]
+    defaultConfig {
+        minSdkVersion versions["minSdkVersion"]
+        targetSdkVersion versions["targetSdkVersion"]
+        versionCode versions["versionCode"]
+        versionName versions["versionName"]
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+//            minifyEnabled true
+            //proguard-android.txt是SDK目录下默认的配置文件
+            //proguard-rules.pro项目根目录下的配置文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable false
+        }
+        debug {
+//            minifyEnabled true
+            //proguard-android.txt是SDK目录下默认的配置文件
+            //proguard-rules.pro项目根目录下的配置文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable true
+        }
+    }
+
+    sourceSets{
+        main{
+            java.srcDirs+="src/main/kotlin"
+        }
+    }
+
+    buildToolsVersion  versions["buildToolsVersion"]
+}
+
+dependencies {
+    api fileTree(include: ['*.jar'], dir: 'libs')
+
+    //兼容包依赖
+    api rootProject.ext.dependencies["support-v4-and-v7"]
+
+    //kotlin标准库依赖
+    api "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+
+    //测试依赖
+    testImplementation rootProject.ext.dependencies["junit"]
+    androidTestImplementation rootProject.ext.dependencies["testRunner"]
+    androidTestImplementation rootProject.ext.dependencies["testEspresso"]
+
+    //retrofit依赖
+    api rootProject.ext.dependencies["retrofit"]
+
+    //okhttp3日志依赖
+    api rootProject.ext.dependencies["okhttp3Logging"]
+
+    //rxJava依赖
+    api rootProject.ext.dependencies["rxJava"]
+
+    //rxLifecycle依赖
+    api rootProject.ext.dependencies["rxLifecycle"]
+}
